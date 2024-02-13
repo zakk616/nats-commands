@@ -23,8 +23,8 @@ nats-server -js -a 127.0.0.1 -p 4221
 nats-server -js -c nats.conf
 ```
 
-> nats.conf
 ```properties
+# nats.conf
 listen:172.0.0.1:4221
 ```
 
@@ -84,19 +84,27 @@ SC.EXE create nats-server2 binPath="C:\nats-server.exe -js -a 127.0.0.1 -p 4221"
 // install nats server as windows service with config
 SC.EXE create nats-server3 binPath="C:\nats-server.exe -js -c C:\nats.conf"
 
-// install nats server as windows service with config and logging
+// install nats server as windows service with config and event logging
 SC.EXE create nats-server3 binPath="C:\nats-server.exe -js -D -c C:\nats.conf"
 
-// install nats server as windows service with config, logging and auto start
-SC.EXE create nats-server4 binPath="C:\nats-server.exe -js -D -c C:\nats.conf" start=delayed-auto
+// install nats server as windows service with config, event+message logging and auto start
+SC.EXE create nats-server4 binPath="C:\nats-server.exe -js -DV -c C:\nats.conf" start=delayed-auto
 
 ```
-> nats.conf
+
 ```properties
-listen: 127.0.0.1:4222
+# nats.conf
 server_name: Node1
+listen: 127.0.0.1:4222
+
 jetstream {
+   store_dir: C:/nats-server/storage/node1
    max_memory_store: 5368709120
    max_file_store: 322122547200
 }
+
+system_account: SYS
+
+logfile_size_limit: 50MB
+log_file: "C:/nats-logs/node1.log"
 ```
