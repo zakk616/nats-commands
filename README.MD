@@ -108,3 +108,92 @@ system_account: SYS
 logfile_size_limit: 50MB
 log_file: "C:/nats-logs/node1.log"
 ```
+
+## Cluster
+
+### Server 1 (host_a)
+
+```
+server_name=n1-c1
+listen=4222
+
+accounts {
+  $SYS {
+    users = [
+      { user: "admin",
+        pass: "$2a$11$DRh4C0KNbNnD8K/hb/buWe1zPxEHrLEiDmuq1Mi0rRJiH/W25Qidm"
+      }
+    ]
+  }
+}
+
+jetstream {
+   store_dir=/nats/storage
+}
+
+cluster {
+  name: C1
+  listen: 0.0.0.0:6222
+  routes: [
+    nats://host_b:6222
+    nats://host_c:6222
+  ]
+}
+```
+
+### Server 2 (host_b)
+```
+server_name=n2-c1
+listen=4222
+
+accounts {
+  $SYS {
+    users = [
+      { user: "admin",
+        pass: "$2a$11$DRh4C0KNbNnD8K/hb/buWe1zPxEHrLEiDmuq1Mi0rRJiH/W25Qidm"
+      }
+    ]
+  }
+}
+
+jetstream {
+   store_dir=/nats/storage
+}
+
+cluster {
+  name: C1
+  listen: 0.0.0.0:6222
+  routes: [
+    nats://host_a:6222
+    nats://host_c:6222
+  ]
+}
+```
+### Server 3 (host_c)
+```
+server_name=n3-c1
+listen=4222
+
+accounts {
+  $SYS {
+    users = [
+      { user: "admin",
+        pass: "$2a$11$DRh4C0KNbNnD8K/hb/buWe1zPxEHrLEiDmuq1Mi0rRJiH/W25Qidm"
+      }
+    ]
+  }
+}
+
+jetstream {
+   store_dir=/nats/storage
+}
+
+cluster {
+  name: C1
+  listen: 0.0.0.0:6222
+  routes: [
+    nats://host_a:6222
+    nats://host_b:6222
+  ]
+}
+```
