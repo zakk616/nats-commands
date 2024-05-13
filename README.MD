@@ -90,6 +90,17 @@ SC.EXE create nats-server3 binPath="C:\nats-server.exe -js -D -c C:\nats.conf"
 // install nats server as windows service with config, event+message logging and auto start
 SC.EXE create nats-server4 binPath="C:\nats-server.exe -js -DV -c C:\nats.conf" start=delayed-auto
 
+//create context
+nats context save contextName -s "nats://user:passwd@IP:Port" --description "this is description of this context"
+
+//create show list
+nats context ls
+
+//create select a context
+nats context select
+
+//create delete a context
+nats context rm contextName
 ```
 
 ```properties
@@ -196,4 +207,9 @@ cluster {
     nats://host_b:6222
   ]
 }
+```
+
+```javascript
+// ls servers of specific cluster
+nats server ls -s "nats://sysuser:pass@127.0.0.1:4221"
 ```
