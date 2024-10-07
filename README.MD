@@ -96,6 +96,9 @@ SC.EXE create nats-server4 binPath="C:\nats-server.exe -js -DV -c C:\nats.conf" 
 //create context
 nats context save contextName -s "nats://user:passwd@IP:Port" --description "this is description of this context"
 
+//create context
+nats context save contextName --server "nats://IP:Port" --user "username" --password "password" --description "this is description of this context"
+
 //create show list
 nats context ls
 
