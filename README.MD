@@ -52,6 +52,15 @@ nats sub "subject" -s "nats://127.0.0.1:4222"
 nats pub "subject" "this is message" -s "nats://127.0.0.1:4222"
 ```
 
+// View messages from streams
+nats -s "nats://127.0.0.1:4222" str view <StreamName>
+
+// View individual message from streams
+nats -s "nats://127.0.0.1:4222" str get <StreamName> <Sequence#>
+
+// Remove individual message from streams
+nats -s "nats://127.0.0.1:4222" str rmm <StreamName> <Sequence#>
+
 ```javascript
 // list streams of specific server
 nats str ls -s "nats://user:pass@127.0.0.1:4222"
