@@ -50,7 +50,7 @@ nats sub "subject" -s "nats://127.0.0.1:4222"
 
 // Publish message to streams
 nats pub "subject" "this is message" -s "nats://127.0.0.1:4222"
-```
+
 
 // View messages from streams
 nats -s "nats://127.0.0.1:4222" str view <StreamName>
@@ -60,6 +60,7 @@ nats -s "nats://127.0.0.1:4222" str get <StreamName> <Sequence#>
 
 // Remove individual message from streams
 nats -s "nats://127.0.0.1:4222" str rmm <StreamName> <Sequence#>
+```
 
 ```javascript
 // list streams of specific server
@@ -225,6 +226,9 @@ cluster {
 ```
 
 ```javascript
-// ls servers of specific cluster
+// list servers of specific cluster
 nats server ls -s "nats://sysuser:pass@127.0.0.1:4222"
+
+// check server connection report of the cluster
+nats server report connections -s "nats://sysuser:pass@127.0.0.1:4222"
 ```
